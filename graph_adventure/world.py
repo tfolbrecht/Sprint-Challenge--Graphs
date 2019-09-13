@@ -42,7 +42,7 @@ class World:
                 rotatedRoomGrid[len(self.roomGrid[0]) - j - 1][i] = self.roomGrid[i][j]
         f = open("map.txt", "w")
         f.write("#####")
-        print("#####")
+        # print("#####")
         str = ""
         for row in rotatedRoomGrid:
             allNull = True
@@ -87,7 +87,7 @@ class World:
         f.write(str)
         f.write("#####")
         f.close()
-        print(str)
-        print("#####")
+        # print(str)
+        # print("#####")
 
 
