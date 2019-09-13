@@ -17,7 +17,7 @@ player = Player("Name", world.startingRoom)
 
 
 
-def breadthfirstsearch(dictionary, room):
+def breadthFirstSearch(dictionary, room):
     visited = set()
     queue= Queue()
     path = [room]
@@ -37,17 +37,12 @@ def breadthfirstsearch(dictionary, room):
             for e in dictionary[v]:
                 node = dictionary[v][e]
                 c = p.copy()
-                # put node in list
                 c.insert(0, node)
-                # add list to queue
                 queue.put(c)
 
     directions = []
-    # go backwards
     while len(path) > 1:
-        # get the last room in the path
         location = path.pop()
-        # find the direction that'll take you to the new last room in the path and append to directions
         for route in dictionary[location]:
             if dictionary[location][route] == path[-1]:
                 directions.append(route)
@@ -72,7 +67,6 @@ def the_other_side(direction):
 walkingPath = ['n', 's']
 
 
-# create dictionary for visited
 visited = {}
 count = 0
 while len(visited) < len(roomGraph):
@@ -84,25 +78,20 @@ while len(visited) < len(roomGraph):
                   if visited[room][direction] == '?']
 
     if len(unexplored):
-        # go down a random pathway
         direction = unexplored[(random.randint(0, len(unexplored)-1))]
         player.travel(direction)
 
         walkingPath.append(direction)
         current_room = player.currentRoom.id
         visited[room][direction] = current_room
-
-        # if current_room is not in visited, add it.:
         if current_room not in visited:
             visited[current_room] = {
                 direction: '?' for direction in player.currentRoom.getExits()}
-        # update current_room entry with old room data (the direction of the old room):
         op_dir = the_other_side(direction)
         visited[current_room][op_dir] = room
 
     else:
-        # generate a list of directions to get to the nearest unexplored node using a breadthfirstsearch, loop through and send the player in those directions in order.
-        directions = breadthfirstsearch(visited, room)
+        directions = breadthFirstSearch(visited, room)
         walkingPath = walkingPath + directions
         for direction in directions:
             player.travel(direction)
