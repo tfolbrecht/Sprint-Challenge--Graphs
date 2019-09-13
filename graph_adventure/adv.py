@@ -1,11 +1,9 @@
 from room import Room
 from player import Player
 from world import World
-
-import random
 from queue import Queue
-
 from roomgraph import roomGraph
+import random
 
 # Load world
 world = World()
@@ -16,10 +14,9 @@ world.printRooms()
 player = Player("Name", world.startingRoom)
 
 
-
 def breadthFirstSearch(dictionary, room):
     visited = set()
-    queue= Queue()
+    queue = Queue()
     path = [room]
     queue.put([room])
     while queue.empty() is False:
